@@ -1,8 +1,6 @@
 <<<<<<< HEAD
 # Online-Event-Ticket-Booking-Platform
-Online Event Ticket Booking Platform
-=======
-# Online Event Ticket Booking Platform
+
 
 Python + SQLite + Streamlit implementation of a role-based ticketing system.
 
