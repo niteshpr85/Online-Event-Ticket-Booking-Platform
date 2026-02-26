@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Event Ticket Booking Platform</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Online Event Ticket Booking Platform</h1>
+      <p>Role-based demo for event onboarding, booking, payment, validation, refunds, and support.</p>
+    </header>
+
+    <main class="grid">
+      <section class="panel">
+        <h2>Platform Admin</h2>
+        <div class="row">
+          <button id="loadUsersBtn">Load Users</button>
+          <button id="loadAnalyticsBtn">Load Analytics</button>
+        </div>
+        <pre id="adminOutput"></pre>
+      </section>
+
+      <section class="panel">
+        <h2>Organizer</h2>
+        <form id="createEventForm" class="stack">
+          <label>Organizer ID <input type="number" name="organizer_id" value="2" required /></label>
+          <label>Title <input type="text" name="title" required /></label>
+          <label>Description <textarea name="description" required></textarea></label>
+          <label>Venue <input type="text" name="venue" required /></label>
+          <label>Start Time <input type="datetime-local" name="start_time" required /></label>
+          <label>End Time <input type="datetime-local" name="end_time" required /></label>
+          <label>Base Price <input type="number" name="base_price" min="1" step="0.01" required /></label>
+          <label>Rows <input type="number" name="row_count" min="1" max="26" value="4" required /></label>
+          <label>Seats Per Row <input type="number" name="seats_per_row" min="1" max="50" value="10" required /></label>
+          <button type="submit">Create Event</button>
+        </form>
+        <form id="eventStatusForm" class="stack">
+          <label>Event ID <input type="number" name="event_id" required /></label>
+          <label>
+            Status
+            <select name="status">
+              <option value="published">published</option>
+              <option value="sold_out">sold_out</option>
+              <option value="completed">completed</option>
+              <option value="cancelled">cancelled</option>
+            </select>
+          </label>
+          <button type="submit">Update Event Status</button>
+        </form>
+        <pre id="organizerOutput"></pre>
+      </section>
+
+      <section class="panel">
+        <h2>Customers</h2>
+        <div class="row">
+          <button id="refreshEventsBtn">Refresh Events</button>
+          <button id="loadOffersBtn">Load Offers</button>
+        </div>
+        <div id="eventsList"></div>
+        <form id="createBookingForm" class="stack">
+          <h3>Create Booking</h3>
+          <label>Customer ID <input type="number" name="customer_id" value="3" required /></label>
+          <label>Event ID <input type="number" name="event_id" required /></label>
+          <label>Seat IDs (comma separated) <input type="text" name="seat_ids" placeholder="1,2,3" required /></label>
+          <label>Offer Code <input type="text" name="offer_code" placeholder="WELCOME10" /></label>
+          <button type="submit">Book Seats</button>
+        </form>
+        <form id="payBookingForm" class="stack">
+          <h3>Pay Booking</h3>
+          <label>Booking ID <input type="number" name="booking_id" required /></label>
+          <label>Customer ID <input type="number" name="customer_id" value="3" required /></label>
+          <label>Method <input type="text" name="method" value="upi" required /></label>
+          <label>
+            Result
+            <select name="mark_success">
+              <option value="true">success</option>
+              <option value="false">failed</option>
+            </select>
+          </label>
+          <button type="submit">Simulate Payment</button>
+        </form>
+        <form id="refundRequestForm" class="stack">
+          <h3>Request Refund</h3>
+          <label>Booking ID <input type="number" name="booking_id" required /></label>
+          <label>Customer ID <input type="number" name="customer_id" value="3" required /></label>
+          <label>Reason <input type="text" name="reason" required /></label>
+          <button type="submit">Request Refund</button>
+        </form>
+        <form id="complaintForm" class="stack">
+          <h3>Raise Complaint</h3>
+          <label>Customer ID <input type="number" name="customer_id" value="3" required /></label>
+          <label>Booking ID <input type="number" name="booking_id" /></label>
+          <label>Event ID <input type="number" name="event_id" /></label>
+          <label>Subject <input type="text" name="subject" required /></label>
+          <label>Description <textarea name="description" required></textarea></label>
+          <button type="submit">Submit Complaint</button>
+        </form>
+        <div class="row">
+          <input type="number" id="historyCustomerId" value="3" />
+          <button id="loadHistoryBtn">Load Booking History</button>
+        </div>
+        <pre id="customerOutput"></pre>
+      </section>
+
+      <section class="panel">
+        <h2>Entry Manager</h2>
+        <form id="validateTicketForm" class="stack">
+          <label>Entry Manager ID <input type="number" name="entry_manager_id" value="4" required /></label>
+          <label>Ticket QR Code <input type="text" name="qr_code" required /></label>
+          <button type="submit">Validate Entry</button>
+        </form>
+        <pre id="entryOutput"></pre>
+      </section>
+
+      <section class="panel">
+        <h2>Support Executive</h2>
+        <div class="row">
+          <button id="loadComplaintsBtn">Load Complaints</button>
+        </div>
+        <form id="complaintUpdateForm" class="stack">
+          <label>Complaint ID <input type="number" name="complaint_id" required /></label>
+          <label>Support Executive ID <input type="number" name="support_executive_id" value="5" required /></label>
+          <label>
+            Status
+            <select name="status">
+              <option value="in_progress">in_progress</option>
+              <option value="resolved">resolved</option>
+              <option value="closed">closed</option>
+            </select>
+          </label>
+          <label>Resolution <textarea name="resolution"></textarea></label>
+          <button type="submit">Update Complaint</button>
+        </form>
+        <form id="refundDecisionForm" class="stack">
+          <label>Booking ID <input type="number" name="booking_id" required /></label>
+          <label>Support Executive ID <input type="number" name="support_executive_id" value="5" required /></label>
+          <label>
+            Decision
+            <select name="approve">
+              <option value="true">approve</option>
+              <option value="false">reject</option>
+            </select>
+          </label>
+          <button type="submit">Process Refund</button>
+        </form>
+        <pre id="supportOutput"></pre>
+      </section>
+    </main>
+
+    <footer>
+      <small>Seed users: admin=1 organizer=2 customer=3 entry=4 support=5</small>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
