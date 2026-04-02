@@ -3,12 +3,14 @@
 
 
 Python + SQLite + Streamlit implementation of a role-based ticketing system.
+<img width="1918" height="866" alt="Screenshot 2026-04-03 011354" src="https://github.com/user-attachments/assets/39a5940c-2f22-44b7-a32f-9d671f8d9960" />
 
 ## Tech Stack
 
 - App Framework/UI: Streamlit
 - ORM/Database: SQLAlchemy + SQLite
 - Service/API layer: FastAPI-compatible service code (reused by Streamlit)
+<img width="1911" height="869" alt="Screenshot 2026-04-03 011457" src="https://github.com/user-attachments/assets/36bb8143-2957-493a-ae2e-9dd547d5095e" />
 
 ## Roles Implemented
 
